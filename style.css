@@ -3,11 +3,11 @@
 
 /* -------------------- 1. THIẾT LẬP CHUNG VÀ NỀN -------------------- */
 :root {
-    --glass-background: rgba(255, 255, 255, 0.1); 
-    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-background: rgba(255, 255, 255, 0.08); /* Giảm độ trong suốt thêm nữa */
+    --glass-border: rgba(255, 255, 255, 0.25); /* Giảm độ dày border mờ */
     --text-color: #f1f1f1;
     --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.2);
-    --blur-value: 4px; /* GIẢM ĐỘ MỜ TỪ 6px XUỐNG 4px ĐỂ TĂNG HIỆU SUẤT */
+    --blur-value: 4px; 
 }
 
 body {
@@ -22,8 +22,13 @@ body {
     padding: 50px 20px;
     box-sizing: border-box;
     color: var(--text-color);
-    /* Gợi ý tăng tốc phần cứng cho Body */
-    will-change: transform; 
+    
+    /* TỐI ƯU HÓA CUỘN (SCROLLING) */
+    will-change: transform, scroll-position; /* Gợi ý tối ưu cuộn và render */
+    overflow-y: scroll; /* Đảm bảo cuộn mượt mà */
+    
+    /* Ngăn chặn hiệu ứng "overscroll" mặc định trên di động */
+    overscroll-behavior-y: contain; 
 }
 
 .main-wrapper {
@@ -32,6 +37,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* Kích hoạt tăng tốc GPU cho chính container */
+    transform: translateZ(0);
 }
 
 /* Tiêu đề (Chào, mình là...) */
@@ -59,32 +66,33 @@ body {
     border-radius: 12px; 
     text-decoration: none; 
     color: var(--text-color); 
-    /* Chỉ áp dụng transition cho transform và background */
+    /* Đảm bảo transition chỉ áp dụng cho các thuộc tính đã tăng tốc GPU */
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.3s;
     cursor: pointer;
     
     /* GLASSMOPHISM STYLES */
     background: var(--glass-background);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    
+    /* BACKDROP-FILTER: NGUYÊN NHÂN GÂY GIẬT LAG. Đã giảm tối đa. */
     backdrop-filter: blur(var(--blur-value)); 
     -webkit-backdrop-filter: blur(var(--blur-value));
     border: 1px solid var(--glass-border);
-    /* SỬ DỤNG will-change VÀ transform để tối ưu GPU */
+    
+    /* Kích hoạt tăng tốc GPU mạnh nhất */
     will-change: transform; 
-    transform: translateZ(0); /* Giữ lại translateZ(0) để đảm bảo kích hoạt GPU */
+    transform: translateZ(0); 
 }
 
 /* Hiệu ứng khi di chuột (Hover) */
 .social-card:hover {
-    background: rgba(255, 255, 255, 0.25); 
-    /* Chỉ thay đổi transform (đã tăng tốc GPU) */
+    background: rgba(255, 255, 255, 0.2); 
     transform: translateY(-3px) scale(1.005) translateZ(0); 
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
 }
 
 /* -------------------- 3. CẤU TRÚC VÀ CHI TIẾT CARD -------------------- */
-
-/* Logo (Bên trái) */
+/* Giữ nguyên các phần icon, info-section, platform-name, username */
 .icon-section {
     flex-shrink: 0;
     width: 45px;
@@ -99,7 +107,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Thông tin (Bên phải) */
 .info-section {
     flex-grow: 1;
     display: flex;
