@@ -3,11 +3,11 @@
 
 /* -------------------- 1. THIẾT LẬP CHUNG VÀ NỀN -------------------- */
 :root {
-    --glass-background: rgba(255, 255, 255, 0.1); /* Giảm opacity một chút */
+    --glass-background: rgba(255, 255, 255, 0.1); 
     --glass-border: rgba(255, 255, 255, 0.3);
     --text-color: #f1f1f1;
     --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.2);
-    --blur-value: 6px; /* Giảm độ mờ từ 8px xuống 6px để tăng hiệu suất */
+    --blur-value: 4px; /* GIẢM ĐỘ MỜ TỪ 6px XUỐNG 4px ĐỂ TĂNG HIỆU SUẤT */
 }
 
 body {
@@ -22,8 +22,8 @@ body {
     padding: 50px 20px;
     box-sizing: border-box;
     color: var(--text-color);
-    /* Kích hoạt tăng tốc phần cứng cho Body */
-    transform: translateZ(0); 
+    /* Gợi ý tăng tốc phần cứng cho Body */
+    will-change: transform; 
 }
 
 .main-wrapper {
@@ -59,7 +59,7 @@ body {
     border-radius: 12px; 
     text-decoration: none; 
     color: var(--text-color); 
-    /* Chỉ áp dụng transition cho các thuộc tính transform và background */
+    /* Chỉ áp dụng transition cho transform và background */
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.3s;
     cursor: pointer;
     
@@ -69,13 +69,14 @@ body {
     backdrop-filter: blur(var(--blur-value)); 
     -webkit-backdrop-filter: blur(var(--blur-value));
     border: 1px solid var(--glass-border);
-    /* Kích hoạt tăng tốc phần cứng cho Card */
-    transform: translateZ(0); 
+    /* SỬ DỤNG will-change VÀ transform để tối ưu GPU */
+    will-change: transform; 
+    transform: translateZ(0); /* Giữ lại translateZ(0) để đảm bảo kích hoạt GPU */
 }
 
 /* Hiệu ứng khi di chuột (Hover) */
 .social-card:hover {
-    background: rgba(255, 255, 255, 0.25); /* Giảm độ sáng hover */
+    background: rgba(255, 255, 255, 0.25); 
     /* Chỉ thay đổi transform (đã tăng tốc GPU) */
     transform: translateY(-3px) scale(1.005) translateZ(0); 
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
