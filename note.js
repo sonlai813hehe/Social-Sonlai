@@ -1,14 +1,39 @@
+import { Fireworks } from 'https://cdn.skypack.dev/fireworks-js'
+
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Hiệu ứng Fade-in Social Container
     const container = document.querySelector('.social-container');
-    
-    // Đảm bảo container được ẩn trước khi hiển thị mượt mà
     if (container) {
         container.style.opacity = 0;
         container.style.transition = 'opacity 1s ease-in';
-
-        // Hiển thị container sau một chút thời gian
-        setTimeout(() => {
-            container.style.opacity = 1;
-        }, 100);
+        setTimeout(() => { container.style.opacity = 1; }, 100);
     }
+
+    // 2. Cấu hình Pháo hoa
+    const fwContainer = document.querySelector('.fireworks-container');
+    const fireworks = new Fireworks(fwContainer, {
+        autoresize: true,
+        opacity: 0.5,
+        acceleration: 1.05,
+        friction: 0.97,
+        gravity: 0.5,
+        particles: 60,
+        explosion: 10,
+        intensity: 30,
+        sound: {
+            enabled: true, // Bật lên sẵn
+            files: [
+                'explosion0.mp3',
+                'explosion1.mp3',
+                'explosion2.mp3'
+            ],
+            volume: { min: 10, max: 15 }
+        }
+    });
+
+    fireworks.start();
+setTimeout(() => {
+        fireworks.stop();
+    }, 50000);
+
 });
