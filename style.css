@@ -1,10 +1,7 @@
-/* IMPORT FONT: Open Sans - Font cổ điển, mềm mại, dễ đọc, và rất cân đối. */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
-
-/* -------------------- 1. THIẾT LẬP CHUNG VÀ NỀN -------------------- */
 :root {
-    --glass-background: rgba(255, 255, 255, 0.08); /* Giảm độ trong suốt thêm nữa */
-    --glass-border: rgba(255, 255, 255, 0.25); /* Giảm độ dày border mờ */
+    --glass-background: rgba(255, 255, 255, 0.08); 
+    --glass-border: rgba(255, 255, 255, 0.25); 
     --text-color: #f1f1f1;
     --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.2);
     --blur-value: 4px; 
@@ -22,12 +19,8 @@ body {
     padding: 50px 20px;
     box-sizing: border-box;
     color: var(--text-color);
-    
-    /* TỐI ƯU HÓA CUỘN (SCROLLING) */
-    will-change: transform, scroll-position; /* Gợi ý tối ưu cuộn và render */
-    overflow-y: scroll; /* Đảm bảo cuộn mượt mà */
-    
-    /* Ngăn chặn hiệu ứng "overscroll" mặc định trên di động */
+    will-change: transform, scroll-position; 
+    overflow-y: scroll; 
     overscroll-behavior-y: contain; 
 }
 
@@ -37,11 +30,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Kích hoạt tăng tốc GPU cho chính container */
     transform: translateZ(0);
 }
-
-/* Tiêu đề (Chào, mình là...) */
 .user-greeting {
     font-size: 1.8em;
     font-weight: 400; 
@@ -57,8 +47,6 @@ body {
     flex-direction: column;
     gap: 18px; 
 }
-
-/* -------------------- 2. HIỆU ỨNG GLASSMORHISM (CARD) -------------------- */
 .social-card {
     display: flex;
     align-items: center;
@@ -66,33 +54,21 @@ body {
     border-radius: 12px; 
     text-decoration: none; 
     color: var(--text-color); 
-    /* Đảm bảo transition chỉ áp dụng cho các thuộc tính đã tăng tốc GPU */
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.3s;
     cursor: pointer;
-    
-    /* GLASSMOPHISM STYLES */
     background: var(--glass-background);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    
-    /* BACKDROP-FILTER: NGUYÊN NHÂN GÂY GIẬT LAG. Đã giảm tối đa. */
     backdrop-filter: blur(var(--blur-value)); 
     -webkit-backdrop-filter: blur(var(--blur-value));
     border: 1px solid var(--glass-border);
-    
-    /* Kích hoạt tăng tốc GPU mạnh nhất */
     will-change: transform; 
     transform: translateZ(0); 
 }
-
-/* Hiệu ứng khi di chuột (Hover) */
 .social-card:hover {
     background: rgba(255, 255, 255, 0.2); 
     transform: translateY(-3px) scale(1.005) translateZ(0); 
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
 }
-
-/* -------------------- 3. CẤU TRÚC VÀ CHI TIẾT CARD -------------------- */
-/* Giữ nguyên các phần icon, info-section, platform-name, username */
 .icon-section {
     flex-shrink: 0;
     width: 45px;
@@ -130,8 +106,6 @@ body {
     overflow: hidden;
     text-overflow: ellipsis; 
 }
-
-/* Màu sắc icon theo từng nền tảng */
 .tiktok .icon-section i { color: #000; }
 .facebook .icon-section i { color: #1877F2; }
 .instagram .icon-section i { color: #E4405F; }
@@ -141,7 +115,7 @@ body {
 .discord .icon-section i { color: #5865F2; }
 .youtube .icon-section i { color: #FF0000; }
 
-/* -------------------- 4. RESPONSIVE (Tối ưu cho Điện thoại) -------------------- */
+/* nhờ AI tạo giao diện-:*/
 @media (max-width: 550px) {
     body {
         padding: 30px 15px;
